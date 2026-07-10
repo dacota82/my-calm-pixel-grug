@@ -4,7 +4,10 @@
   const STORAGE_KEY = "my-calm-pixel-grug-cards";
   const IMAGE_PATH = "assets/anchor-grug.png";
   const DEFAULT_USER_MESSAGE = "오늘도 작은 돌 하나.";
-  const BREATH_SECONDS = 3;
+  const BREATH_INHALE_SECONDS = 3;
+  const BREATH_HOLD_SECONDS = 3;
+  const BREATH_EXHALE_SECONDS = 5;
+  const BREATH_ROUNDS = 5;
 
   const timeGuides = {
     morning: "오늘 마음은 어떤가요?",
@@ -43,9 +46,9 @@
   };
 
   const breathSteps = [
-    { label: "숨 들이쉬기", seconds: BREATH_SECONDS },
-    { label: "잠시 멈추기", seconds: BREATH_SECONDS },
-    { label: "천천히 내쉬기", seconds: BREATH_SECONDS },
+    { label: "숨 들이쉬기", seconds: BREATH_INHALE_SECONDS },
+    { label: "잠시 멈추기", seconds: BREATH_HOLD_SECONDS },
+    { label: "천천히 내쉬기", seconds: BREATH_EXHALE_SECONDS },
   ];
 
   const appState = {
@@ -57,6 +60,8 @@
     draftCard: null,
     cards: [],
     breathTimerId: null,
+    breathRound: 1,
+    breathStepIndex: 0,
   };
 
   const els = {
@@ -65,6 +70,7 @@
     emotionList: document.getElementById("emotion-list"),
     checkinHint: document.getElementById("checkin-hint"),
     userMessage: document.getElementById("user-message"),
+    breathRound: document.getElementById("breath-round"),
     breathLabel: document.getElementById("breath-step-label"),
     breathCount: document.getElementById("breath-count"),
     resultDate: document.getElementById("result-date"),
@@ -221,6 +227,12 @@
     }
   }
 
+  function updateBreathRoundLabel() {
+    if (els.breathRound) {
+      els.breathRound.textContent = appState.breathRound + "/" + BREATH_ROUNDS;
+    }
+  }
+
   function finishBreathing() {
     clearBreathTimer();
     appState.draftCard = createCheckInCard();
@@ -229,14 +241,23 @@
     showScreen("result-screen");
   }
 
-  function runBreathStep(index) {
-    if (index >= breathSteps.length) {
-      finishBreathing();
-      return;
+  function advanceBreath() {
+    appState.breathStepIndex += 1;
+    if (appState.breathStepIndex >= breathSteps.length) {
+      appState.breathStepIndex = 0;
+      appState.breathRound += 1;
+      if (appState.breathRound > BREATH_ROUNDS) {
+        finishBreathing();
+        return;
+      }
     }
+    runBreathStep();
+  }
 
-    const step = breathSteps[index];
+  function runBreathStep() {
+    const step = breathSteps[appState.breathStepIndex];
     let remaining = step.seconds;
+    updateBreathRoundLabel();
     els.breathLabel.textContent = step.label;
     els.breathCount.textContent = String(remaining);
 
@@ -245,7 +266,7 @@
       remaining -= 1;
       if (remaining <= 0) {
         clearBreathTimer();
-        runBreathStep(index + 1);
+        advanceBreath();
         return;
       }
       els.breathCount.textContent = String(remaining);
@@ -258,8 +279,10 @@
       return;
     }
     els.checkinHint.hidden = true;
+    appState.breathRound = 1;
+    appState.breathStepIndex = 0;
     showScreen("breathing-screen");
-    runBreathStep(0);
+    runBreathStep();
   }
 
   function renderResultCard(card) {
@@ -325,6 +348,8 @@
     appState.userMessage = "";
     appState.currentGrugMessage = "";
     appState.draftCard = null;
+    appState.breathRound = 1;
+    appState.breathStepIndex = 0;
     els.userMessage.value = "";
     els.checkinHint.hidden = true;
     els.saveFeedback.hidden = true;
