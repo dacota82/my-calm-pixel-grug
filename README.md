@@ -30,7 +30,8 @@
 | `docs/design.md` | 설계서 (구현 전) |
 
 ## 앱 실행
-브라우저에서 `index.html`을 열면 My Calm — Pixel Grug MVP를 사용할 수 있습니다.
+- Live Demo: https://dacota82.github.io/my-calm-pixel-grug/
+- 로컬: 브라우저에서 `index.html`을 열면 My Calm — Pixel Grug MVP를 사용할 수 있습니다.
 
 ## 예정 에셋
 | 파일 | 역할 |
