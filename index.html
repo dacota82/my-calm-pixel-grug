@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Calm — Pixel Grug</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <!-- 메인 -->
+    <section id="home-screen" class="screen active" aria-label="메인">
+      <p class="eyebrow">My Calm</p>
+      <h1 class="title">Pixel Grug</h1>
+      <p class="tagline">오늘의 마음을 1분 안에 픽셀 카드로 남기는 앱</p>
+      <img
+        class="pixel-image grug-hero"
+        src="assets/anchor-grug.png"
+        alt="Pixel Grug 동굴 친구 마스코트"
+        width="220"
+        height="220"
+      />
+      <p id="home-time-guide" class="time-guide" aria-live="polite"></p>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" id="btn-start">시작하기</button>
+        <button type="button" class="btn btn-ghost" id="btn-history-from-home">지난 카드 보기</button>
+      </div>
+    </section>
+
+    <!-- 체크인 -->
+    <section id="checkin-screen" class="screen" aria-label="체크인">
+      <h2 class="screen-title">지금 마음은?</h2>
+      <p id="checkin-time-guide" class="time-guide" aria-live="polite"></p>
+      <div id="emotion-list" class="emotion-list" role="group" aria-label="감정 선택"></div>
+      <p id="checkin-hint" class="hint" hidden>지금 마음을 하나 골라주세요.</p>
+      <label class="field-label" for="user-message">오늘의 한 줄</label>
+      <textarea
+        id="user-message"
+        class="user-message"
+        rows="2"
+        maxlength="120"
+        placeholder="짧게 적어도 괜찮아요."
+      ></textarea>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" id="btn-breathe">호흡 시작</button>
+        <button type="button" class="btn btn-ghost" id="btn-back-home">뒤로</button>
+      </div>
+    </section>
+
+    <!-- 호흡 -->
+    <section id="breathing-screen" class="screen" aria-label="호흡">
+      <h2 class="screen-title">짧은 호흡</h2>
+      <p id="breath-step-label" class="breath-label" aria-live="polite">숨 들이쉬기</p>
+      <p id="breath-count" class="breath-count" aria-live="polite">3</p>
+      <p class="hint">Grug도 같이 숨 고르는 중…</p>
+    </section>
+
+    <!-- 결과 카드 -->
+    <section id="result-screen" class="screen" aria-label="결과 카드">
+      <h2 class="screen-title">오늘의 픽셀 카드</h2>
+      <article id="result-card" class="pixel-card" aria-live="polite">
+        <img
+          class="pixel-image card-grug"
+          src="assets/anchor-grug.png"
+          alt="Pixel Grug"
+          width="96"
+          height="96"
+        />
+        <p class="card-meta"><span id="result-date"></span> · <span id="result-slot"></span></p>
+        <p class="card-emotion" id="result-emotion"></p>
+        <p class="card-user" id="result-user"></p>
+        <p class="card-grug-msg" id="result-grug"></p>
+      </article>
+      <p id="save-feedback" class="hint" hidden>카드를 남겼어요.</p>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" id="btn-save">카드 저장</button>
+        <button type="button" class="btn btn-ghost" id="btn-again">다시 체크인</button>
+        <button type="button" class="btn btn-ghost" id="btn-history-from-result">기록 보기</button>
+      </div>
+    </section>
+
+    <!-- 기록 목록 -->
+    <section id="history-screen" class="screen" aria-label="기록 목록">
+      <h2 class="screen-title">마음 카드 기록</h2>
+      <div id="card-list" class="card-list"></div>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" id="btn-home-from-history">홈으로</button>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
