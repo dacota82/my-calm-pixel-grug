@@ -4,3 +4,10 @@ Thumbs.db
 node_modules/
 .vscode/
 .idea/
+
+# Vite / env
+dist/
+dist-ssr/
+*.local
+.env
+.env.local
