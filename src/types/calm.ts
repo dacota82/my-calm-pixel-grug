@@ -3,7 +3,8 @@ export type ScreenId =
   | "checkin"
   | "breathing"
   | "result"
-  | "history";
+  | "history"
+  | "sound";
 
 export type TimeSlot = "morning" | "midday" | "nap" | "evening" | "night";
 

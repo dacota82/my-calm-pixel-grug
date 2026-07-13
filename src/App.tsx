@@ -4,6 +4,7 @@ import { CheckInScreen } from "./components/CheckInScreen";
 import { HistoryScreen } from "./components/HistoryScreen";
 import { HomeScreen } from "./components/HomeScreen";
 import { ResultScreen } from "./components/ResultScreen";
+import { SoundScreen } from "./components/SoundScreen";
 import {
   DEFAULT_USER_MESSAGE,
   IMAGE_PATH,
@@ -84,6 +85,10 @@ function App() {
     setCurrentScreen("history");
   }, [refreshSavedCards]);
 
+  const goSound = useCallback(() => {
+    setCurrentScreen("sound");
+  }, []);
+
   const handleSelectEmotion = useCallback((emotionId: EmotionId) => {
     setSelectedEmotionId(emotionId);
     setShowEmotionHint(false);
@@ -150,6 +155,7 @@ function App() {
           timeGuide={timeGuide}
           onStart={goCheckIn}
           onHistory={goHistory}
+          onSound={goSound}
         />
       ) : null}
 
@@ -187,6 +193,8 @@ function App() {
           onHome={goHome}
         />
       ) : null}
+
+      {currentScreen === "sound" ? <SoundScreen onHome={goHome} /> : null}
     </main>
   );
 }

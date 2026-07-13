@@ -4,9 +4,15 @@ type HomeScreenProps = {
   timeGuide: string;
   onStart: () => void;
   onHistory: () => void;
+  onSound: () => void;
 };
 
-export function HomeScreen({ timeGuide, onStart, onHistory }: HomeScreenProps) {
+export function HomeScreen({
+  timeGuide,
+  onStart,
+  onHistory,
+  onSound,
+}: HomeScreenProps) {
   return (
     <section className="screen active" aria-label="메인">
       <p className="eyebrow">My Calm</p>
@@ -28,6 +34,9 @@ export function HomeScreen({ timeGuide, onStart, onHistory }: HomeScreenProps) {
         </button>
         <button type="button" className="btn btn-ghost" onClick={onHistory}>
           지난 카드 보기
+        </button>
+        <button type="button" className="btn btn-ghost" onClick={onSound}>
+          음악과 함께 쉬기
         </button>
       </div>
     </section>
